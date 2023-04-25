@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
 
     ler_entrada(ARQUIVO, v);
 
-    testar_busca(v, TAMANHO);    
+    testar_busca(v , TAMANHO);    
 
     delete [] v;
 
