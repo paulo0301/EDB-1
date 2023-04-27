@@ -37,7 +37,7 @@ void testar_busca(string entrada[], int tamanho_total)
     // Essa chave não existe no arquivo, logo, estaremos exercitando o pior caso da busca
     string chave = "0000_XXXX_ZZZZ_7777_!!!!!";
 
-    int quantidade_medicoes = 100;
+    int quantidade_medicoes = 10;
     int incremento = tamanho_total / quantidade_medicoes;
     int tamanho_busca = tamanho_total / quantidade_medicoes;
     
@@ -45,7 +45,8 @@ void testar_busca(string entrada[], int tamanho_total)
     while(tamanho_busca <= tamanho_total)
     {
         auto inicio = std::chrono::high_resolution_clock::now();
-        int indice_retornado = busca(entrada, tamanho_busca, chave);
+        // int indice_retornado = bbin(entrada, chave, 0, tamanho_busca-1);
+        int indice_retornado = bseq(entrada, tamanho_busca, chave);
         auto fim = std::chrono::high_resolution_clock::now();
 
         auto duracao = std::chrono::duration_cast<std::chrono::microseconds>(fim - inicio).count();
@@ -60,7 +61,7 @@ void testar_busca(string entrada[], int tamanho_total)
 
 void ler_entrada(const string arquivo, string v[]){
     ifstream arquivo_stream(arquivo);
-    
+
     if(!arquivo_stream.good())
     {
         cout << "ERRO: Arquivo não encontrado: " << arquivo << endl;
@@ -69,9 +70,12 @@ void ler_entrada(const string arquivo, string v[]){
     
     int i = 0;
 
-    while( ! arquivo_stream.eof() ){
+    while( !arquivo_stream.eof() ){
         string x;
         arquivo_stream >> x;
+        if(x.empty()){
+            continue;
+        }
         v[i] = x;
         i++;
     }
